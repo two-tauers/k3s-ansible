@@ -2,6 +2,18 @@
 
 Author: <https://github.com/itwars>
 
+## two-tauers notes
+
+As stated below, these playbooks assume the hosts are accessible over ssh, so if you haven't set it up, you might want to have a look at [two-tauers/baseline](https://github.com/two-tauers/baseline) repo.
+
+The change in this fork is the [inventory for `two-tauers`](inventory/two-tauers.yaml). If you follow the same convention as in the baseline, it should work out of the box:
+
+```
+ansible-playbook site.yml -i inventory/two-tauers.yaml
+```
+
+Otherwise, adjust it according to your setup.
+
 ## K3s Ansible Playbook
 
 Build a Kubernetes cluster using Ansible with k3s. The goal is easily install a Kubernetes cluster on machines running:
