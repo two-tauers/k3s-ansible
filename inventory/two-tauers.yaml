@@ -4,8 +4,8 @@ all:
     ansible_user: ansible
     ansible_ssh_private_key_file:
       "{{ lookup('env','HOME') }}/.ssh/two-tauers-ansible"
-    master_ip: "{{ groups['master'][0] }}"
-    k3s_version: v1.19.15+k3s2
+    master_ip: "{{ groups['master'] | map('extract', hostvars, ['ansible_host']) | first }}"
+    k3s_version: v1.23.1+k3s2
     systemd_dir: /etc/systemd/system
 
   children:
@@ -13,9 +13,13 @@ all:
       children:
         master:
           hosts:
-            192.168.0.100
+            sauron:
+              ansible_host: 192.168.0.100
         node:
           hosts:
-            192.168.0.101
-            192.168.0.102
-            192.168.0.103
+            orker1:
+              ansible_host: 192.168.0.101
+            orker2:
+              ansible_host: 192.168.0.102
+            orker3:
+              ansible_host: 192.168.0.103
