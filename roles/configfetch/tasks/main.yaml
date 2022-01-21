@@ -1,0 +1,14 @@
+---
+- name: Copy config to the temp folder
+  command: cp /home/{{ ansible_user }}/.kube/config /tmp/two-tauers.yaml
+
+- name: Fetch .kube/config to the client
+  fetch:
+    src: /tmp/two-tauers.yaml
+    dest: "{{ lookup('env', 'HOME') }}/.kube/contexts/"
+    flat: yes
+
+- name: Clear /tmp
+  file:
+    state: absent
+    path: /tmp/two-tauers.yaml
